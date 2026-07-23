@@ -1,119 +1,66 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- Version 0.8 -->
-<title>Aurum Kapital-Kompass v0.8</title>
-<style>
-:root{--blue:#175be8;--blue-soft:#eef4ff;--green:#16853a;--green-soft:#f2fbf4;--ink:#152033;--muted:#697386;--line:#e3e8f0;--bg:#f7f9fc;--card:#fff}
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}button,input,select{font:inherit}.app{min-height:100vh;display:grid;grid-template-columns:210px 1fr}.sidebar{background:#fff;border-right:1px solid var(--line);padding:20px 12px}.brand{display:flex;align-items:center;gap:10px;margin:0 8px 26px}.logo{width:42px;height:42px;border-radius:11px;background:linear-gradient(145deg,#0a50ef,#5d91ff);display:grid;place-items:center;color:white;font-weight:800;font-size:25px}.brand strong{font-size:18px;line-height:1.05}.nav{display:grid;gap:8px}.nav button{border:0;background:transparent;border-radius:12px;padding:13px 14px;text-align:left;cursor:pointer;color:#2c3850}.nav button.active{background:var(--blue-soft);color:var(--blue);font-weight:700}.main{padding:22px 28px 36px;max-width:1220px;width:100%;margin:auto}.page{display:none}.page.active{display:block}.topbar{display:flex;align-items:center;gap:8px;margin-bottom:16px}.topbar h1{font-size:28px;margin:0}.i{border:1px solid #b8c7e9;background:#fff;color:var(--blue);width:25px;height:25px;border-radius:50%;font-weight:800;cursor:pointer}.popover{display:none;position:absolute;z-index:10;max-width:390px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:0 10px 28px rgba(20,35,60,.14);font-size:13px;line-height:1.45}.popover.open{display:block}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:18px}.card h2{font-size:17px;margin:0 0 14px}.capital-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.capital-input{font-size:27px;font-weight:750;width:175px;border:0;border-bottom:2px solid var(--line);padding:4px 0;outline:none}.pill{background:var(--blue);color:#fff;border-radius:999px;padding:6px 16px;font-weight:700}.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;border-top:1px solid var(--line);margin-top:15px;padding-top:14px}.meta small,.stat small{display:block;color:var(--muted);margin-bottom:5px}.meta strong{font-size:16px}.row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}.row:last-child{border:0}.label{font-weight:650}.sub{font-size:12px;color:var(--muted);margin-top:4px}.value{text-align:right;color:var(--blue);font-weight:700}.scenario{border:1.5px solid;border-radius:17px;padding:18px}.scenario.green{border-color:#7acb8f;background:linear-gradient(#fff,var(--green-soft))}.scenario.blue{border-color:#86a8ff;background:linear-gradient(#fff,#f1f5ff)}.scenario h3{font-size:21px;margin:4px 0 6px}.scenario.green h3,.scenario.green .main-value{color:var(--green)}.scenario.blue h3,.scenario.blue .main-value{color:var(--blue)}.scenario p{font-size:14px;color:#445067;margin:0 0 14px}.result{background:rgba(255,255,255,.6);border:1px solid rgba(80,110,155,.16);border-radius:13px;text-align:center;padding:15px}.caption{font-size:13px}.main-value{font-size:30px;font-weight:760;margin:7px 0 12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(80,110,155,.16)}.stat{padding:12px 6px}.stat strong{font-size:14px}.timeline{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.timeline button{border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 13px;min-width:112px;cursor:pointer}.timeline button.active{background:var(--blue);color:#fff;border-color:var(--blue)}details{margin-top:12px}summary{cursor:pointer;color:var(--blue);font-weight:700;font-size:13px}.panel{margin-top:9px;background:#f8faff;border:1px solid var(--line);border-radius:11px;padding:12px;font-size:13px;line-height:1.48}.fine{font-size:12px;color:var(--muted);line-height:1.45;margin-top:12px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.toolbar button,.primary,.secondary{border-radius:10px;padding:10px 13px;cursor:pointer}.primary{border:0;background:var(--blue);color:#fff}.secondary,.toolbar button{border:1px solid var(--line);background:#fff}.setup{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}.field input,.field select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff}.tree-scroll{overflow:auto;padding:12px 4px 24px}.tree ul{padding-top:22px;position:relative;display:flex;justify-content:center;margin:0;padding-left:0}.tree li{list-style:none;text-align:center;position:relative;padding:22px 8px 0}.tree li::before,.tree li::after{content:"";position:absolute;top:0;right:50%;border-top:2px solid #cdd6e5;width:50%;height:22px}.tree li::after{right:auto;left:50%;border-left:2px solid #cdd6e5}.tree li:only-child::before,.tree li:only-child::after{display:none}.tree li:only-child{padding-top:0}.tree li:first-child::before,.tree li:last-child::after{border:0}.tree li:last-child::before{border-right:2px solid #cdd6e5;border-radius:0 8px 0 0}.tree li:first-child::after{border-radius:8px 0 0 0}.tree ul ul::before{content:"";position:absolute;top:0;left:50%;border-left:2px solid #cdd6e5;width:0;height:22px}.node{display:inline-block;min-width:170px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px 13px;box-shadow:0 7px 18px rgba(25,42,70,.07);cursor:pointer}.node .name{font-weight:780}.node .small{font-size:12px;color:var(--muted);margin-top:3px}.badge{display:inline-block;font-size:11px;padding:3px 7px;border-radius:999px;background:var(--blue-soft);color:var(--blue);margin-top:5px}.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed #cfd7e6;border-radius:14px}.suggestion{margin-top:14px;border:1px solid #cfe0ff;background:#f6f9ff;border-radius:12px;padding:12px;font-size:13px}.hidden{display:none!important}.modal{position:fixed;inset:0;background:rgba(12,22,42,.42);display:none;place-items:center;padding:18px;z-index:30}.modal.open{display:grid}.modal-box{background:#fff;border-radius:16px;max-width:680px;width:100%;max-height:86vh;overflow:auto;padding:20px}.close{float:right;border:0;background:#eef1f5;border-radius:50%;width:31px;height:31px;cursor:pointer}.source-table{width:100%;border-collapse:collapse;margin-top:10px}.source-table th,.source-table td{padding:10px 8px;border-bottom:1px solid #e8ecf2;text-align:left;vertical-align:top}.source-table th{font-size:12px;color:var(--muted);font-weight:750;background:#f8faff}.source-table td:nth-child(3),.source-table td:nth-child(4),.source-table th:nth-child(3),.source-table th:nth-child(4){text-align:right;white-space:nowrap}@media(max-width:620px){.source-table{font-size:13px}.source-table th,.source-table td{padding:9px 5px}.source-table th{font-size:10px}.source-table td:nth-child(2){white-space:nowrap}}
-.ref-section{margin-top:30px;padding-top:22px;border-top:1px solid var(--line)}.ref-section h2{font-size:17px;margin:0 0 10px}.refbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px}.refbar strong{font-size:14px}.refbar .actions{display:flex;gap:8px;flex-wrap:wrap}.guide{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px;font-size:13px}.step b{color:var(--blue);margin-right:5px}.demo-note{background:#f8faff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px;font-size:13px}.linkbox{display:grid;gap:10px}.linkresult{word-break:break-all;background:#f6f8fb;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:12px}.mutedbtn{border:0;background:transparent;color:var(--blue);cursor:pointer;padding:5px}.mini{font-size:12px;color:var(--muted)}.section-head{display:flex;align-items:center;gap:8px}.section-help{display:none;margin-top:8px;font-size:12px;line-height:1.45;color:var(--muted);background:#f8faff;border:1px solid var(--line);border-radius:10px;padding:10px}.section-help.open{display:block}.ref-slot{margin-top:24px}@media(max-width:900px){.guide{grid-template-columns:1fr 1fr}.app{grid-template-columns:1fr}.sidebar{border-right:0;border-bottom:1px solid var(--line);padding:12px}.brand{margin-bottom:12px}.nav{grid-template-columns:1fr 1fr}.main{padding:16px}.grid2{grid-template-columns:1fr}.setup{grid-template-columns:1fr 1fr}.meta{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr}.tree-scroll{padding-bottom:16px}.sidebar .brand strong{font-size:16px}}
+A
+AURUM
+KAPITAL-KOMPASS
+↗   Simulation
+⌘   Struktur-Vorschlag
+Kapitalentwicklungs-Simulation
+i
+1Kapital eingeben
+2Simulation vergleichen
+3Struktur testen
+4Über Ansprechpartner anmelden
+Dein Kapital & Paket
+10.000
+USDT
+VIP
+i
+Kundenanteil
+–
+Modell-Rendite pro Monat
+–
+Modell-Ertrag im 1. Monat
+–
+Geplanter Start
+Monat und Jahr
+2026-08
+Wie wird das berechnet?
 
-.link-modal-box{max-width:520px;padding:16px 18px;overflow:visible}.link-modal-box h3{font-size:22px;margin:4px 42px 8px 0}.compact-copy{margin:0 0 12px}.link-modal-box .linkbox{gap:8px}.link-modal-box .field input{height:44px;padding:9px 11px}.link-modal-box .primary,.link-modal-box .secondary{min-height:44px;padding:9px 12px}.link-modal-box .linkresult{padding:9px 11px;color:var(--green);background:var(--green-soft);font-weight:700;text-align:center}
-@media(max-width:620px){.modal{padding:10px;align-items:end}.link-modal-box{max-width:none;width:100%;max-height:calc(100vh - 20px);padding:14px;border-radius:16px}.link-modal-box h3{font-size:19px;line-height:1.2;margin-top:2px}.link-modal-box .close{width:32px;height:32px}.compact-copy{font-size:11px;line-height:1.35}.link-modal-box .field label{font-size:11px}.link-modal-box .field input{height:42px;font-size:16px}.link-modal-box .primary,.link-modal-box .secondary{width:100%;min-height:42px}.main{padding:12px}.topbar h1{font-size:23px}.card,.scenario{padding:14px}.main-value{font-size:26px}.timeline{display:grid;grid-template-columns:repeat(2,1fr)}.timeline button{min-width:0;padding:9px 6px}.refbar .actions,.refbar .actions>*{width:100%}}
-</style>
-</head><body>
-<div class="app">
-<aside class="sidebar"><div class="brand"><div class="logo">A</div><strong>AURUM<br>KAPITAL-KOMPASS</strong></div><div class="nav"><button id="navSim" class="active">↗ &nbsp; Simulation</button><button id="navTree">⌘ &nbsp; Struktur-Vorschlag</button></div></aside>
-<main class="main">
-<section id="simPage" class="page active">
-<div class="topbar"><h1>Kapitalentwicklungs-Simulation</h1><button class="i" id="simInfo">i</button><div class="popover" id="simPop"><strong>Hinweis</strong><br>Kein offizielles Aurum-Produkt. Dieses privat entwickelte Werkzeug dient nur der Orientierung und individuellen Planung. Alle Werte sind unverbindliche Modellrechnungen. Boni, Profitshare und Profit on Profit sind nicht enthalten und können je nach Stufe zusätzlich hinzukommen.</div></div><div class="guide"><div class="step"><b>1</b>Kapital eingeben</div><div class="step"><b>2</b>Simulation vergleichen</div><div class="step"><b>3</b>Struktur testen</div><div class="step"><b>4</b>Über Ansprechpartner anmelden</div></div>
-<div class="grid2">
-<div class="card"><h2>Dein Kapital & Paket</h2><div class="capital-row"><input id="capital" class="capital-input" type="text" inputmode="decimal" value="10.000" aria-label="Eingesetztes Kapital"><strong>USDT</strong><span id="packageName" class="pill">VIP</span><button class="i" id="packageInfo">i</button></div><div class="meta"><div><small>Kundenanteil</small><strong id="share">–</strong></div><div><small>Modell-Rendite pro Monat</small><strong id="rate">–</strong></div><div><small>Modell-Ertrag im 1. Monat</small><strong id="month1">–</strong></div></div><div class="row" style="margin-top:14px"><div><div class="label">Geplanter Start</div><div class="sub">Monat und Jahr</div></div><input id="start" type="month" value="2026-08"></div><details id="packageDetailsWrap"><summary>Wie wird das berechnet?</summary><div class="panel" id="packageDetails"></div></details></div>
-<div class="card"><h2>Annahmen der Simulation</h2><div class="row"><div><div class="label">Historische Gesamtperformance</div><div class="sub">Hinterlegter Modellwert des Ex-AI-Bots</div></div><div class="value">ca. 17,5 %<br>pro Monat</div></div><div class="row"><div><div class="label">Entnahmezeitraum</div><div class="sub">Nur im Mischmodell</div></div><div class="value">Vom 1. bis 15.<br>eines jeden Monats</div></div><div class="row"><div><div class="label">Compound-Zeitraum</div><div class="sub">Nur im Mischmodell</div></div><div class="value">Vom 16. bis<br>Monatsende</div></div></div>
-</div>
-<div class="grid2" style="margin-top:16px">
-<div class="scenario green"><div>Szenario 1</div><h3>Alles im Compound lassen</h3><p>Dein gesamtes Kapital bleibt durchgehend im Compound.</p><div class="result"><div class="caption" id="cap1Label"></div><div class="main-value" id="cap1"></div><div class="stats"><div class="stat"><small>Gesamtgewinn</small><strong id="gain1"></strong></div><div class="stat"><small>Startkapital verdoppelt in</small><strong id="roi1"></strong></div><div class="stat"><small>Ø monatliche Steigerung</small><strong id="avg1"></strong></div></div></div></div>
-<div class="scenario blue"><div>Szenario 2</div><h3>Gewinne entnehmen & Compound nutzen</h3><p>Du entnimmst den modellhaften Gewinn der ersten Monatshälfte. In der zweiten Monatshälfte arbeitet das Kapital weiter.</p><div class="result"><div class="caption" id="cap2Label"></div><div class="main-value" id="cap2"></div><div class="stats"><div class="stat"><small>Modellhafte Entnahmen gesamt</small><strong id="withdrawn"></strong></div><div class="stat"><small>Ø Entnahme pro Monat</small><strong id="avgPay"></strong></div><div class="stat"><small>ROI erreicht in</small><strong id="roi2"></strong></div></div></div><details><summary>Mischmodell einfach erklärt</summary><div class="panel">Die Monatsrendite wird rechnerisch auf zwei gleich lange Monatshälften verteilt. Der Ertrag der ersten Hälfte wird als Entnahme behandelt. Der Ertrag der zweiten Hälfte bleibt im Kapital. Weil Aurum nur einen Monatswert ausweist, ist dies eine transparente Modellannahme und keine Abbildung täglicher Originalabrechnungen.</div></details></div>
-</div>
-<h2 style="font-size:16px;margin:16px 0 6px">Zeitraum wählen</h2><div id="timeline" class="timeline"></div>
-<div class="fine">Simulation auf Basis der hinterlegten Paketwerte. Ergebnisse können höher oder niedriger ausfallen. Keine Garantie. Boni, Profitshare und Profit on Profit sind nicht berücksichtigt.</div><button class="secondary" id="openSources" style="margin-top:12px">Paketwerte ansehen</button><div id="refSlotSim" class="ref-slot"></div>
-</section>
-<section id="treePage" class="page">
-<div class="topbar"><h1>Struktur-Vorschlag</h1><button class="i" id="treeInfo">i</button><div class="popover" id="treePop"><strong>Hinweis</strong><br>Kein offizielles Aurum-Produkt. Strukturvorschläge sind unverbindlich. Bestehende Referral-Zuordnungen dürfen nicht nachträglich verändert werden. Die automatische Empfehlung ist nur eine Planungshilfe für neue Interessenten.</div></div><div class="demo-note"><strong>Noch unsicher, was hier eingetragen wird?</strong> Sieh dir zuerst eine einfache Musterstruktur an. Deine eigene Planung bleibt davon unberührt.<div style="margin-top:8px"><button id="showDemo" class="secondary">Musteransicht zeigen</button> <button id="startOwn" class="primary">Eigene Struktur starten</button></div></div>
-<div class="card"><div class="section-head"><h2>Eigene Planung anlegen</h2><button class="i" id="ownPlanInfo">i</button></div><div class="section-help" id="ownPlanHelp">Hier legst du deine persönliche Ausgangssituation an: deinen Namen, dein geplantes Kapital und den gewünschten Start. Danach kannst du interessierte Freunde ergänzen und verschiedene Platzierungen unverbindlich durchspielen.</div><div class="setup"><div class="field"><label>Dein Name</label><input id="rootName" placeholder="z. B. Max M."></div><div class="field"><label>Dein Kapital</label><input id="rootAmount" type="number" min="100" placeholder="z. B. 2.500"></div><div class="field"><label>Geplanter Start</label><input id="rootStart" type="month" value="2026-08"></div><div class="field" style="align-self:end"><button id="createRoot" class="primary" style="width:100%">Planung starten</button></div></div></div>
-<div class="card" style="margin-top:14px"><div class="section-head"><h2>Interessenten hinzufügen</h2><button class="i" id="personInfo">i</button></div><div class="section-help" id="personHelp">Du hast einem Freund von Aurum erzählt und er ist interessiert. Du kannst ihn hier unverbindlich in deiner Struktur interessierter Freunde einplanen. So lässt sich prüfen, welche Platzierung nach den hinterlegten Regeln sinnvoll sein könnte, damit mögliche Aurum-Boni und ein anteiliger Profitshare bestmöglich berücksichtigt werden. Eine Garantie oder offizielle Aurum-Empfehlung ist das nicht.</div><div class="setup"><div class="field"><label>Name</label><input id="personName" placeholder="Name"></div><div class="field"><label>Geplantes Kapital</label><input id="personAmount" type="number" min="100" placeholder="z. B. 1.000"></div><div class="field"><label>Empfehlungsgeber</label><select id="personRef"><option value="auto">Automatisch vorschlagen</option></select></div><div class="field" style="align-self:end"><button id="addPerson" class="primary" style="width:100%">Interessenten hinzufügen</button></div></div><div class="mini" style="margin-top:8px">Weitere Freunde kannst du nacheinander über dasselbe Formular hinzufügen. Nach jedem Hinzufügen werden die Felder wieder geleert.</div><div class="suggestion" id="logicText"><strong>Vorschlagslogik:</strong> Ab 10.000 USDT wird eine direkte Platzierung unter dir vorgeschlagen. Kleinere Interessenten werden – sofern keine feste Referral-Zuordnung besteht – der aktuell schwächeren Strukturseite vorgeschlagen. Bestehende Zuordnungen werden nie verändert.</div></div>
-<div class="card" style="margin-top:14px"><div class="toolbar"><button id="toggleAmounts">Beträge ausblenden</button><button id="collapseTree">Alles zuklappen</button><button id="expandTree">Alles öffnen</button><button id="clearTree">Planung leeren</button></div><div class="tree-scroll"><div id="tree" class="tree"><div class="empty">Noch keine Struktur angelegt.</div></div></div></div><div id="refSlotTree" class="ref-slot"></div>
-</section>
-<div class="ref-section" id="refSection"><h2>Weitergabe und Anmeldung</h2><div class="refbar"><div><strong id="refStatus">Persönlicher Empfehlungslink nicht eingerichtet</strong><div class="mini" id="refSub">Der Weitergeber kann hier seinen Namen und Aurum-Referral-Link hinterlegen.</div></div><div class="actions"><a id="signupBtn" class="primary hidden" target="_blank" rel="noopener">Du bist noch nicht bei Aurum? Hier anmelden</a><button id="makeLinkBtn" class="secondary">Ich möchte den Rechner weitergeben</button></div></div></div>
-</main></div>
-<div class="modal" id="linkModal"><div class="modal-box link-modal-box"><button class="close" id="closeLinkModal">×</button><h3>Persönlichen Weitergabe-Link erstellen</h3><p class="fine compact-copy">Name und vollständigen Aurum-Referral-Link eintragen. Der erzeugte Link öffnet den Rechner mit dir als Ansprechpartner.</p><div class="linkbox"><div class="field"><label>Dein Name</label><input id="refName" autocomplete="name" placeholder="z. B. Volker H."></div><div class="field"><label>Dein Aurum-Referral-Link</label><input id="refUrl" inputmode="url" autocomplete="url" placeholder="https://aurumneobank.app.link/?r=..."></div><button id="createPersonalLink" class="primary">Persönlichen Link erstellen</button><div id="personalLinkResult" class="linkresult hidden" role="status"></div><button id="copyPersonalLink" class="secondary hidden">Link kopieren</button></div></div></div>
-<div class="modal" id="sourceModal"><div class="modal-box"><button class="close" id="closeModal">×</button><h3>Hinterlegte Einzahlungspakete und Modellrenditen</h3><div id="sourceTable"></div><p class="fine">Grundlage der Simulation sind die aktuell hinterlegten Paketwerte aus den bereitgestellten Aurum-Screenshots. Alle Ergebnisse sind unverbindliche Modellrechnungen. Änderungen werden nicht automatisch übernommen.</p></div></div>
-<script>
-const packages=[
-{name:'Basic',min:100,max:249.99,share:60,rate:10.50},{name:'Standard',min:250,max:999.99,share:65,rate:11.37},{name:'Comfort',min:1000,max:2499.99,share:70,rate:12.25},{name:'Optimal',min:2500,max:4999.99,share:75,rate:13.12},{name:'Business',min:5000,max:9999.99,share:80,rate:14.00},{name:'VIP',min:10000,max:24999.99,share:85,rate:14.88},{name:'Luxury',min:25000,max:49999.99,share:90,rate:15.75},{name:'Ultimate',min:50000,max:99999.99,share:95,rate:16.62}];
-const periods=[{m:6,label:'6 Monate'},{m:12,label:'1 Jahr'},{m:18,label:'1,5 Jahre'},{m:24,label:'2 Jahre'},{m:36,label:'3 Jahre'},{m:48,label:'4 Jahre'}];
-const MAX_MONTHS=480;let selectedMonths=12;let showAmounts=true;let root=null;
-let demoMode=false;
-function readReferral(){
- const hash=location.hash.replace(/^#/,'');
- if(!hash)return null;
- try{
-  const q=new URLSearchParams(hash);
-  const name=(q.get('name')||'').trim();
-  const url=(q.get('ref')||'').trim();
-  if(name&&url)return{name,url};
-  if(hash.startsWith('ref=')){
-   const raw=hash.slice(4);
-   return JSON.parse(decodeURIComponent(atob(raw)));
-  }
- }catch(e){}
- return null;
-}
-function safeReferralUrl(u){try{const x=new URL(u);return x.protocol==='https:'?x.href:''}catch(e){return ''}}
-function applyReferral(){const r=readReferral();if(r&&r.name&&safeReferralUrl(r.url)){$('refStatus').textContent='Empfohlen von '+r.name;$('refSub').textContent='Du bist noch nicht bei Aurum angemeldet? Nutze den persönlichen Referral-Link deines Ansprechpartners.';$('signupBtn').href=safeReferralUrl(r.url);$('signupBtn').classList.remove('hidden')}else{$('signupBtn').classList.add('hidden')}}
+Annahmen der Simulation
+Historische Gesamtperformance
+Hinterlegter Modellwert des Ex-AI-Bots
+ca. 17,5 %
+pro Monat
+Entnahmezeitraum
+Nur im Mischmodell
+Vom 1. bis 15.
+eines jeden Monats
+Compound-Zeitraum
+Nur im Mischmodell
+Vom 16. bis
+Monatsende
+Szenario 1
+Alles im Compound lassen
+Dein gesamtes Kapital bleibt durchgehend im Compound.
 
-const $=id=>document.getElementById(id);const fmt=n=>new Intl.NumberFormat('de-DE',{maximumFractionDigits:0}).format(n)+' USDT';const pct=n=>new Intl.NumberFormat('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n)+' %';const amountLabel=n=>new Intl.NumberFormat('de-DE',{minimumFractionDigits:Number.isInteger(n)?0:2,maximumFractionDigits:2}).format(n);const parseGermanNumber=v=>{const x=String(v??'').trim().replace(/\s/g,'').replace(/\./g,'').replace(',','.');const n=Number(x);return Number.isFinite(n)?n:NaN};const formatCapitalInput=n=>new Intl.NumberFormat('de-DE',{maximumFractionDigits:2}).format(n);
-function getPkg(c){if(c<100)return packages[0];return packages.find(p=>c>=p.min&&c<=p.max)||packages.at(-1)}
-function addMonths(ym,m){const [y,mo]=ym.split('-').map(Number),d=new Date(y,mo-1+m,1);return String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getFullYear()).slice(-2)}
-function calcFull(start,months){let c=start;for(let i=0;i<months;i++){const p=getPkg(c);c*=1+p.rate/100}return c}
-function calcMixed(start,months){let c=start,w=0;for(let i=0;i<months;i++){const p=getPkg(c);const half=Math.sqrt(1+p.rate/100)-1;w+=c*half;c*=1+half}return{capital:c,withdrawn:w}}
-function firstMonth(start,kind){let c=start,w=0;for(let m=1;m<=MAX_MONTHS;m++){const p=getPkg(c);if(kind==='double'){c*=1+p.rate/100;if(c>=2*start)return m}else{const half=Math.sqrt(1+p.rate/100)-1;w+=c*half;c*=1+half;if(w>=start)return m}}return null}
-function simulate(){const startCap=Math.max(100,Math.min(99999.99,parseGermanNumber($('capital').value)||100));const p=getPkg(startCap);$('packageName').textContent=p.name;$('share').textContent=p.share+' %';$('rate').textContent='ca. '+pct(p.rate);$('month1').textContent='ca. '+fmt(startCap*p.rate/100);$('packageDetails').innerHTML=`Dein Kapital gehört zum Paket <strong>${p.name}</strong>. Dafür gilt ein Kundenanteil von <strong>${p.share} %</strong> und eine hinterlegte Modellrendite von <strong>${pct(p.rate)}</strong> pro Monat. Erreicht dein Kapital durch Compound eine höhere Paketstufe, rechnet das Modell ab dem Folgemonat mit dem neuen Paketwert weiter.`;const a=calcFull(startCap,selectedMonths),b=calcMixed(startCap,selectedMonths),period=periods.find(x=>x.m===selectedMonths);$('cap1Label').textContent=`Kapitalstand nach ${period.label} (Simulation)`;$('cap2Label').textContent=`Kapitalstand nach ${period.label} (Simulation)`;$('cap1').textContent=fmt(a);$('gain1').textContent=fmt(a-startCap);$('roi1').textContent=(m=>m?`ca. ${m} Monate`:'nicht ermittelt')(firstMonth(startCap,'double'));$('avg1').textContent=pct((Math.pow(a/startCap,1/selectedMonths)-1)*100);$('cap2').textContent=fmt(b.capital);$('withdrawn').textContent=fmt(b.withdrawn);$('avgPay').textContent=fmt(b.withdrawn/selectedMonths);$('roi2').textContent=(m=>m?`ca. ${m} Monate`:'nicht ermittelt')(firstMonth(startCap,'roi'));[...$('timeline').children].forEach(x=>x.classList.toggle('active',Number(x.dataset.m)===selectedMonths))}
-function renderTimeline(){const st=$('start').value||'2026-08';$('timeline').innerHTML='';periods.forEach(p=>{const b=document.createElement('button');b.dataset.m=p.m;b.innerHTML=`<strong>${p.label}</strong><br><small>${addMonths(st,0)} – ${addMonths(st,p.m)}</small>`;b.onclick=()=>{selectedMonths=p.m;simulate()};$('timeline').appendChild(b)})}
-function pop(btn,pop){btn.onclick=e=>{e.stopPropagation();pop.classList.toggle('open')}}pop($('simInfo'),$('simPop'));pop($('treeInfo'),$('treePop'));document.addEventListener('click',()=>document.querySelectorAll('.popover').forEach(p=>p.classList.remove('open')));
-$('packageInfo').onclick=()=>{$('packageDetailsWrap').open=true};$('capital').oninput=simulate;$('capital').onblur=()=>{const n=Math.max(100,Math.min(99999.99,parseGermanNumber($('capital').value)||100));$('capital').value=formatCapitalInput(n);simulate()};$('capital').onfocus=()=>{$('capital').select()};$('start').onchange=()=>{renderTimeline();simulate()};
-$('navSim').onclick=()=>switchPage('sim');$('navTree').onclick=()=>switchPage('tree');function switchPage(p){$('navSim').classList.toggle('active',p==='sim');$('navTree').classList.toggle('active',p==='tree');$('simPage').classList.toggle('active',p==='sim');$('treePage').classList.toggle('active',p==='tree');$(p==='sim'?'refSlotSim':'refSlotTree').appendChild($('refSection'))}
-$('ownPlanInfo').onclick=()=>$('ownPlanHelp').classList.toggle('open');$('personInfo').onclick=()=>$('personHelp').classList.toggle('open');
-function nodeSum(n){return (n.amount||0)+(n.children||[]).reduce((s,c)=>s+nodeSum(c),0)}
-function allNodes(n,arr=[]){if(!n)return arr;arr.push(n);(n.children||[]).forEach(c=>allNodes(c,arr));return arr}
-function updateRefOptions(){const sel=$('personRef');sel.innerHTML='<option value="auto">Automatisch vorschlagen</option>';allNodes(root).forEach(n=>{const o=document.createElement('option');o.value=n.id;o.textContent=n.name;sel.appendChild(o)})}
-function suggestParent(amount){if(!root)return null;if(amount>=10000)return root;const direct=root.children||[];if(!direct.length)return root;return [...direct].sort((a,b)=>nodeSum(a)-nodeSum(b)||(a.children?.length||0)-(b.children?.length||0))[0]}
-function renderTree(){if(!root){$('tree').innerHTML='<div class="empty">Noch keine Struktur angelegt.</div>';updateRefOptions();return}$('tree').innerHTML='';const ul=document.createElement('ul');ul.appendChild(renderLi(root));$('tree').appendChild(ul);updateRefOptions()}
-function renderLi(n){const li=document.createElement('li'),box=document.createElement('div');box.className='node';box.innerHTML=`<div class="name">${n.name}</div><div class="small amount">${n.amount?fmt(n.amount):'Betrag offen'}</div><div class="small">Start: ${n.start||'offen'}</div>${n.suggested?'<span class="badge">Vorschlag</span>':''}`;li.appendChild(box);if(n.children?.length){const ul=document.createElement('ul');n.children.forEach(c=>ul.appendChild(renderLi(c)));li.appendChild(ul);box.onclick=()=>ul.classList.toggle('hidden')}return li}
-$('createRoot').onclick=()=>{demoMode=false;const name=$('rootName').value.trim(),amount=parseGermanNumber($('rootAmount').value);if(!name||amount<100)return alert('Bitte Name und Kapital ab 100 USDT eingeben.');root={id:crypto.randomUUID(),name,amount,start:addMonths($('rootStart').value,0),children:[]};renderTree()};
-$('addPerson').onclick=()=>{if(demoMode)return alert('Bitte zuerst auf „Eigene Struktur starten“ klicken.');if(!root)return alert('Bitte zuerst deine eigene Planung starten.');const name=$('personName').value.trim(),amount=parseGermanNumber($('personAmount').value);if(!name||amount<100)return alert('Bitte Name und Kapital ab 100 USDT eingeben.');let parent,suggested=false;if($('personRef').value==='auto'){parent=suggestParent(amount);suggested=true}else parent=allNodes(root).find(n=>n.id===$('personRef').value);parent.children=parent.children||[];parent.children.push({id:crypto.randomUUID(),name,amount,start:addMonths($('rootStart').value,0),children:[],suggested});$('personName').value='';$('personAmount').value='';renderTree()};
-$('toggleAmounts').onclick=()=>{showAmounts=!showAmounts;document.querySelectorAll('.amount').forEach(e=>e.classList.toggle('hidden',!showAmounts));$('toggleAmounts').textContent=showAmounts?'Beträge ausblenden':'Beträge anzeigen'};$('collapseTree').onclick=()=>document.querySelectorAll('.tree ul ul').forEach(e=>e.classList.add('hidden'));$('expandTree').onclick=()=>document.querySelectorAll('.tree ul').forEach(e=>e.classList.remove('hidden'));$('clearTree').onclick=()=>{if(confirm('Planung wirklich leeren?')){root=null;demoMode=false;showAmounts=true;$('rootName').value='';$('rootAmount').value='';$('personName').value='';$('personAmount').value='';$('personRef').value='auto';$('toggleAmounts').textContent='Beträge ausblenden';$('logicText').innerHTML='<strong>Vorschlagslogik:</strong> Ab 10.000 USDT wird eine direkte Platzierung unter dir vorgeschlagen. Kleinere Interessenten werden – sofern keine feste Referral-Zuordnung besteht – der aktuell schwächeren Strukturseite vorgeschlagen. Bestehende Zuordnungen werden nie verändert.';renderTree()}};
-$('makeLinkBtn').onclick=()=>{$('linkModal').classList.add('open');$('personalLinkResult').classList.add('hidden');$('copyPersonalLink').classList.add('hidden');$('copyPersonalLink').textContent='Link kopieren'};
-$('closeLinkModal').onclick=()=>$('linkModal').classList.remove('open');
-$('linkModal').onclick=e=>{if(e.target===$('linkModal'))$('linkModal').classList.remove('open')};
-$('createPersonalLink').onclick=()=>{
- const name=$('refName').value.trim();
- const url=safeReferralUrl($('refUrl').value.trim());
- if(!name||!url){alert('Bitte Name und einen gültigen https-Referral-Link eingeben.');return;}
- const base=location.href.split('#')[0];
- const q=new URLSearchParams({name,ref:url});
- const link=base+'#'+q.toString();
- $('personalLinkResult').dataset.link=link;
- $('personalLinkResult').textContent='Persönlicher Link wurde erstellt.';
- $('personalLinkResult').classList.remove('hidden');
- $('copyPersonalLink').classList.remove('hidden');
-};
-$('copyPersonalLink').onclick=async()=>{
- const link=$('personalLinkResult').dataset.link||'';
- if(!link)return;
- try{
-  await navigator.clipboard.writeText(link);
-  $('copyPersonalLink').textContent='Link kopiert';
- }catch(e){
-  const ta=document.createElement('textarea');ta.value=link;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();
-  const ok=document.execCommand('copy');ta.remove();
-  if(ok)$('copyPersonalLink').textContent='Link kopiert';else prompt('Link kopieren:',link);
- }
-};
-function demoTree(){return{id:'demo-root',name:'Du',amount:10000,start:'08/26',children:[{id:'demo-a',name:'Partner/in',amount:5000,start:'08/26',children:[{id:'demo-c',name:'Interessent A',amount:1000,start:'09/26',children:[]}]},{id:'demo-b',name:'Interessent B',amount:20000,start:'09/26',children:[]}]}}
-$('showDemo').onclick=()=>{root=demoTree();demoMode=true;renderTree();$('logicText').innerHTML='<strong>Musteransicht:</strong> Dieses Beispiel dient nur zur Orientierung. Klicke auf „Eigene Struktur starten“, um die Demo zu entfernen.'};$('startOwn').onclick=()=>{root=null;demoMode=false;renderTree();$('logicText').innerHTML='<strong>Vorschlagslogik:</strong> Ab 10.000 USDT wird eine direkte Platzierung unter dir vorgeschlagen. Kleinere Interessenten werden – sofern keine feste Referral-Zuordnung besteht – der aktuell schwächeren Strukturseite vorgeschlagen. Bestehende Zuordnungen werden nie verändert.'};
-$('sourceTable').innerHTML='<table class="source-table"><thead><tr><th>Paket</th><th>Einzahlungsbereich<br>(USDT / USDC)</th><th>Kundenanteil</th><th>Modellrendite<br>pro Monat</th></tr></thead><tbody>'+packages.map(p=>`<tr><td><strong>${p.name}</strong></td><td>${amountLabel(p.min)}–${amountLabel(p.max)}</td><td>${p.share} %</td><td>${pct(p.rate)}</td></tr>`).join('')+'</tbody></table>';$('openSources').onclick=()=>$('sourceModal').classList.add('open');$('closeModal').onclick=()=>$('sourceModal').classList.remove('open');$('sourceModal').onclick=e=>{if(e.target===$('sourceModal'))$('sourceModal').classList.remove('open')};
-applyReferral();switchPage('sim');renderTimeline();simulate();renderTree();
-</script></body></html>
+
+Gesamtgewinn
+Startkapital verdoppelt in
+Ø monatliche Steigerung
+Szenario 2
+Gewinne entnehmen & Compound nutzen
+Du entnimmst den modellhaften Gewinn der ersten Monatshälfte. In der zweiten Monatshälfte arbeitet das Kapital weiter.
+
+
+Modellhafte Entnahmen gesamt
+Ø Entnahme pro Monat
+ROI erreicht in
+Mischmodell einfach erklärt
+Die Monatsrendite wird rechnerisch auf zwei gleich lange Monatshälften verteilt. Der Ertrag der ersten Hälfte wird als Entnahme behandelt. Der Ertrag der zweiten Hälfte bleibt im Kapital. Weil Aurum nur einen Monatswert ausweist, ist dies eine transparente Modellannahme und keine Abbildung täglicher Originalabrechnungen.
+Zeitraum wählen
+Simulation auf Basis der hinterlegten Paketwerte. Ergebnisse können höher oder niedriger ausfallen. Keine Garantie. Boni, Profitshare und Profit on Profit sind nicht berücksichtigt.
+Paketwerte ansehen
+
+Weitergabe und Anmeldung
+Persönlicher Empfehlungslink nicht eingerichtet
+Der Weitergeber kann hier seinen Namen und Aurum-Referral-Link hinterlegen.
+Ich möchte den Rechner weitergeben
